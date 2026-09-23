@@ -1,0 +1,71 @@
+#plasmo-shadow-container { z-index: 2147483646 !important; }
+.ow-root, .ow-root * { box-sizing: border-box; }
+.ow-root { font-family: Arial, Helvetica, sans-serif; color: #303030; font-size: 14px; line-height: 1.35; }
+.ow-root button, .ow-root input { font: inherit; }
+.ow-root button { cursor: pointer; }
+.ow-root button:focus-visible, .ow-root input:focus-visible { outline: 3px solid #4f78e7; outline-offset: 2px; }
+.ow-root button:disabled { opacity: .48; cursor: not-allowed; }
+.ow-launcher { position: fixed; z-index: 2147483646; right: 16px; top: 41%; width: 290px; min-height: 59px; display: flex; align-items: stretch; background: #252525; color: #fff; box-shadow: 0 17px 31px #0005; }
+.ow-launcher-main { flex: 1; display: flex; align-items: center; gap: 15px; border: 0; padding: 11px 16px; background: transparent; color: inherit; text-align: left; font-size: 18px; font-weight: 500; }
+.ow-launcher-main svg { width: 27px; height: 27px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ow-launcher-close { width: 43px; border: 0; background: transparent; color: #aaa; font-size: 25px; }
+.ow-launcher-close:hover { color: #fff; }
+.ow-panel { position: fixed; z-index: 2147483646; right: 3.5vw; bottom: 20px; height: min(86dvh, 870px); min-height: 420px; display: flex; flex-direction: column; overflow: hidden; background: #fff; box-shadow: 0 16px 70px #0004; }
+.ow-resizer { position: absolute; z-index: 8; left: 0; top: 0; height: 100%; width: 9px; cursor: ew-resize; touch-action: none; }
+.ow-resizer:hover { background: #ddd8; }
+.ow-header { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; flex: none; height: 65px; padding: 0 20px; background: #fff; border-bottom: 1px solid #eee; }
+.ow-header > strong { color: #343434; font-size: 24px; letter-spacing: -.025em; font-weight: 700; }
+.ow-header > strong span { font-size: 19px; }
+.ow-header-actions { position: absolute; right: 10px; top: 0; height: 100%; display: flex; align-items: center; }
+.ow-header-actions button { display: grid; place-items: center; width: 34px; height: 34px; border: 0; background: transparent; color: #888; font-size: 22px; }
+.ow-header-actions button:hover { color: #222; background: #f2f2f2; }
+.ow-stage { position: relative; flex: 1; min-height: 230px; overflow: hidden; background: #232323; }
+.ow-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); transition: opacity .2s ease; }
+.ow-stage-camera { z-index: 1; }
+.ow-stage-result { z-index: 2; }
+.ow-hidden-video { opacity: 0; pointer-events: none; }
+.ow-holo-wave { position: absolute; z-index: 3; inset: 0; overflow: hidden; pointer-events: none; background: linear-gradient(180deg, transparent 0%, #70f4ed18 36%, #84fff022 54%, transparent 100%); animation: ow-holo-wash 1.35s ease-out both; }
+.ow-holo-wave::before { content: ""; position: absolute; inset: -55% -30%; background: linear-gradient(180deg, transparent 40%, #b5fff400 46%, #b5fff46b 49%, #f3fffeef 50%, #5de9dc8c 51%, #a0fff900 55%, transparent 60%); filter: blur(5px); transform: translateY(-50%) rotate(-7deg); animation: ow-holo-sweep 1.35s cubic-bezier(.2,.65,.25,1) both; }
+.ow-holo-wave span { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, #bafff80d 0 1px, transparent 1px 7px); opacity: .8; }
+@keyframes ow-holo-sweep { from { transform: translateY(-50%) rotate(-7deg); } to { transform: translateY(58%) rotate(-7deg); } }
+@keyframes ow-holo-wash { 0%, 75% { opacity: 1; } 100% { opacity: 0; } }
+.ow-stage-empty { position: absolute; z-index: 3; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; background: #edece9; text-align: center; }
+.ow-stage-empty span { margin-bottom: 13px; color: #8a8a88; letter-spacing: .22em; font-size: 11px; }
+.ow-stage-empty strong { font-size: clamp(25px, 4vw, 40px); letter-spacing: -.04em; font-weight: 600; }
+.ow-stage-empty p { margin: 7px 0 0; color: #6d6d6b; font-size: 13px; }
+.ow-drop-target { position: absolute; z-index: 5; left: 50%; bottom: 48px; transform: translateX(-50%); min-width: min(390px, 82%); min-height: 73px; display: flex; align-items: center; justify-content: center; gap: 14px; border: 2px dashed #b8b8b8; padding: 12px 18px; background: #171717d9; color: #fff; font-size: clamp(14px, 2vw, 22px); font-weight: 600; white-space: nowrap; backdrop-filter: blur(4px); }
+.ow-drop-target:hover { background: #202020f2; border-color: #fff; }
+.ow-drop-target svg { flex: none; width: 29px; height: 29px; fill: none; stroke: #fff; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.ow-stage-bottom { position: absolute; z-index: 4; left: 18px; right: 18px; bottom: 12px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; color: #ffffffc9; text-shadow: 0 1px 5px #000a; font-size: 10px; }
+.ow-stage-bottom strong { font-family: Georgia, serif; font-size: 23px; letter-spacing: -.06em; }
+.ow-footer { flex: none; max-height: 34%; overflow-y: auto; padding: 12px 18px 14px; background: #fff; }
+.ow-footer-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; color: #717171; font-size: 10px; font-weight: 700; letter-spacing: .15em; }
+.ow-footer-top button { border: 0; background: transparent; color: #333; font-size: 11px; font-weight: 700; letter-spacing: 0; }
+.ow-garments { display: flex; gap: 8px; overflow-x: auto; }
+.ow-garment { flex: 0 0 88px; min-width: 0; padding: 3px; border: 1px solid #e2e2e2; background: #fff; color: #454545; text-align: left; }
+.ow-garment.selected { border-color: #222; box-shadow: 0 0 0 1px #222 inset; }
+.ow-thumb { display: block; height: 46px; overflow: hidden; background: #f2f2f0; }
+.ow-thumb img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.ow-garment strong { display: block; overflow: hidden; padding: 3px 2px 0; color: #454545; font-size: 9px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.ow-description { display: block; margin-top: 8px; color: #656565; font-size: 11px; }
+.ow-description input { display: block; width: 100%; margin-top: 3px; padding: 6px 8px; border: 1px solid #ccc; color: #242424; background: #fff; }
+.ow-bottom-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+.ow-status { display: flex; align-items: center; gap: 7px; min-width: 0; color: #747474; font-size: 11px; }
+.ow-live-dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: #2aaa67; }
+.ow-controls { display: flex; gap: 5px; }
+.ow-controls button { border: 1px solid #ccc; padding: 7px 10px; background: #fff; color: #333; font-size: 11px; white-space: nowrap; }
+.ow-controls .ow-primary { border-color: #171717; background: #171717; color: #fff; }
+.ow-error { margin-top: 8px; padding: 8px 10px; background: #fff1ed; color: #a33627; font-size: 11px; }
+.ow-tutorial { position: fixed; z-index: 2147483646; right: 22px; top: 23%; width: min(390px, calc(100vw - 44px)); padding: 32px 31px 26px; background: #fff; color: #2c2c2c; box-shadow: 0 20px 60px #0004; }
+.ow-tutorial-close { position: absolute; top: 10px; right: 12px; border: 0; background: transparent; color: #777; font-size: 25px; }
+.ow-tutorial-kicker { color: #888; letter-spacing: .2em; font-size: 11px; font-weight: 700; }
+.ow-tutorial h2 { margin: 16px 0 8px; font-size: 30px; letter-spacing: -.04em; }
+.ow-tutorial p { min-height: 70px; margin: 0; color: #696969; font-size: 15px; line-height: 1.5; }
+.ow-tutorial-dots { display: flex; gap: 7px; margin: 22px 0; }
+.ow-tutorial-dots span { width: 7px; height: 7px; border-radius: 50%; background: #ccc; }
+.ow-tutorial-dots span.active { background: #222; }
+.ow-tutorial-actions { display: flex; justify-content: space-between; gap: 10px; }
+.ow-tutorial-actions button { min-width: 78px; border: 1px solid #ccc; padding: 10px 14px; background: #fff; color: #333; }
+.ow-tutorial-actions .primary { border-color: #1b1b1b; background: #1b1b1b; color: #fff; }
+@media (max-width: 640px) { .ow-panel { right: 0; bottom: 0; width: 100vw !important; height: 92dvh; min-height: 0; } .ow-header { height: 55px; } .ow-header > strong { font-size: 18px; } .ow-header-actions button { width: 29px; } .ow-footer { max-height: 41%; padding: 10px; } .ow-drop-target { min-height: 61px; bottom: 42px; } .ow-stage-bottom span { display: none; } .ow-launcher { right: 8px; width: 245px; } }
+@media (prefers-reduced-motion: reduce) { .ow-stage video { transition: none; } .ow-holo-wave { display: none; } }

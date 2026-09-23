@@ -1,0 +1,10 @@
+.env
+node_modules/
+extension/node_modules/
+extension/.plasmo/
+extension/build/
+extension/vendor/decart-sdk.mjs
+extension/tsconfig.tsbuildinfo
+site/app.js
+static/app.js
+*.log

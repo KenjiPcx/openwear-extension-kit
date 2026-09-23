@@ -1,0 +1,46 @@
+{
+  "name": "openwear-extension",
+  "displayName": "OpenWear Fitting Room",
+  "version": "0.3.0",
+  "description": "Drag product images into a live virtual fitting room.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prebundle": "esbuild vendor/decart-entry.ts --bundle --platform=browser --format=esm --target=chrome120 --minify --outfile=vendor/decart-sdk.mjs",
+    "dev": "npm run prebundle && plasmo dev",
+    "build": "npm run prebundle && plasmo build",
+    "package": "plasmo package",
+    "test": "node --test tests/*.test.mjs",
+    "test:bundle": "node --test tests/bundle.test.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@decartai/sdk": "0.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.270",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "esbuild": "^0.25.12",
+    "plasmo": "0.90.5",
+    "typescript": "^5.7.3"
+  },
+  "manifest": {
+    "permissions": [
+      "storage",
+      "scripting"
+    ],
+    "host_permissions": [
+      "http://127.0.0.1/*",
+      "http://localhost/*",
+      "https://*/*",
+      "http://*/*"
+    ],
+    "action": {
+      "default_title": "Open OpenWear fitting room",
+      "default_popup": "popup.html"
+    }
+  }
+}

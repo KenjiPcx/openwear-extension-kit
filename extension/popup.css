@@ -1,0 +1,13 @@
+html, body { margin: 0; padding: 0; background: #f8f8f7; }
+body { width: 420px; color: #202020; font-family: Arial, Helvetica, sans-serif; }
+* { box-sizing: border-box; }
+.popup { padding: 32px 30px 29px; }
+.eyebrow { margin-bottom: 22px; color: #888; font-size: 17px; font-weight: 500; line-height: 1.15; letter-spacing: .32em; }
+.popup-action { width: 100%; min-height: 70px; display: flex; align-items: center; gap: 16px; margin-top: 14px; border: 0; border-radius: 18px; padding: 12px 22px; color: #fff; text-align: left; font-size: 21px; font-weight: 500; letter-spacing: .01em; cursor: pointer; }
+.popup-action.primary { background: #10100e; }
+.popup-action.secondary { background: #373737; }
+.popup-action:hover { filter: brightness(1.16); }
+.popup-action:focus-visible { outline: 3px solid #567eec; outline-offset: 3px; }
+.popup-action:disabled { opacity: .65; cursor: wait; }
+.popup-action svg { width: 27px; height: 27px; flex: none; fill: none; stroke: #d0d0d0; stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
+.popup-error { margin: 14px 2px 0; color: #a42d26; font-size: 12px; line-height: 1.4; }
