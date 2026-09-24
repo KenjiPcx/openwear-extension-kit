@@ -4,7 +4,14 @@ Date: 2026-09-23 (Asia/Kuala_Lumpur)
 
 ## Package check — 2026-09-24
 
-The current package pins `@decartai/sdk` 0.1.0 in both npm projects. The older note below mentioning 0.2.1 records an earlier state and is not the current pin. On 2026-09-24, the root project passed 14/14 Node tests and `npm run build`; the extension passed TypeScript checking, 4/4 active tests (one optional live-link test skipped), and `npm run build`. These checks do not verify generated video. The last documented live attempt below ended at `Model not permitted`; no later successful AI stream has been recorded here.
+The current package pins `@decartai/sdk` 0.1.0 in both npm projects. The older note below mentioning 0.2.1 records an earlier state and is not the current pin. On 2026-09-24, the root project passed 14/14 Node tests and `npm run build`; the extension passed TypeScript checking, 4/4 active tests (one optional live-link test skipped), and `npm run build`. A later operated extension test on 2026-09-24 did return live generated video; see below. The earlier `Model not permitted` result is historical.
+
+## Live extension proof — 2026-09-24
+
+- Started the local server at `http://127.0.0.1:4317` with the existing `.env` key, without exposing the key.
+- In the installed Brave extension on `https://whop.com/zanarkandlabs/`, opened the fitting room, selected Cobalt knit, and enabled the camera. The UI progressed through `Connecting to Decart…` and `Connected · waiting for AI video…` to `● Live try-on`.
+- The returned video visibly showed the blue Cobalt knit on the person. Selected Clay everyday; the holographic sweep appeared and the returned video changed to an orange shirt. Both states were visually inspected in browser screenshots during the operated test.
+- Stopped the session immediately after the garment change. This proves one successful camera-to-AI extension stream and starter-garment switching on this account at this time, not universal buyer access, sizing accuracy, arbitrary retailer images, or a production service.
 
 ## Passed
 
@@ -23,7 +30,7 @@ The current package pins `@decartai/sdk` 0.1.0 in both npm projects. The older n
 
 ## Not yet verified
 
-- Generated camera-to-AI video, AI garment switching fidelity, and snapshot export remain unverified because the configured Decart account is not permitted to use Lucy VTON.
+- Snapshot export, arbitrary uploaded/product-link garment fidelity, and repeatability across browsers or buyer accounts remain unverified.
 - Docker build and hosted HTTPS deployment have not been run.
 - The operated camera test connected to Decart before the model-permission rejection; the session was stopped after verification.
 
@@ -35,4 +42,4 @@ The current package pins `@decartai/sdk` 0.1.0 in both npm projects. The older n
 
 ## Next proof
 
-Enable `lucy-vton-latest` / `lucy-vton-3.5` for the configured Decart account (or replace the key with one that has access), then inspect real returned video. Switch Cobalt → Clay, upload a real product photo, save a look, then stop. Only then call live try-on verified.
+The extension's starter-garment camera-to-AI path is verified. Next prove a real uploaded product photo and saved snapshot, then repeat in a fresh browser session. Buyers still need their own key, credits, and model access.
