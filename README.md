@@ -23,9 +23,9 @@ It runs on [Decart](https://platform.decart.ai)'s Lucy VTON realtime model. **Th
 
 ## Quick start (no coding, 2 minutes)
 
-This repo includes a ready-made build in the **`openwear-extension`** folder.
+The download includes a ready-made build in the **`openwear-extension`** folder.
 
-1. On GitHub, click the green **Code** button → **Download ZIP**, then unzip it.
+1. Unzip the download.
 2. Go to `chrome://extensions` (Chrome) or `brave://extensions` (Brave).
 3. Turn on **Developer mode** (the switch in the top-right corner).
 4. Click **Load unpacked** and select the **`openwear-extension`** folder.
@@ -165,10 +165,6 @@ extension/
 **Privacy:** your camera video goes to Decart only while the fitting room is open. Nothing is recorded or stored. Body tracking runs on your own computer.
 
 **Developer note:** when OpenWear is loaded unpacked (Developer mode), a page on `http://localhost` can ask it to reload itself, so new builds can be picked up without visiting the extensions page. Installs from a store ignore this.
-
-## Business notes
-
-[BUSINESS_ANALYSIS.md](BUSINESS_ANALYSIS.md) has my breakdown of what realtime try-on costs, and where a try-on business might and might not work.
 
 ## License
 
