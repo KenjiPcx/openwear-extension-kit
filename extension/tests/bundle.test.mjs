@@ -13,11 +13,14 @@ test("the browser SDK resolves Decart models with finite camera constraints", ()
   assert.ok(Number.isFinite(model.fps?.ideal))
 })
 
-test("the packaged popup and content script exist", () => {
+test("the packaged popup, content script, fitting room and vision files exist", () => {
   assert.equal(manifest.action.default_popup, "popup.html")
   assert.ok(existsSync(new URL(manifest.action.default_popup, root)))
   const content = manifest.content_scripts[0].js[0]
   assert.ok(existsSync(new URL(content, root)))
   const source = readFileSync(new URL(content, root), "utf8")
+  assert.ok(existsSync(new URL("tabs/room.html", root)))
+  assert.ok(existsSync(new URL("vision/pose_landmarker_lite.task", root)))
+  assert.ok(manifest.content_security_policy.extension_pages.includes("wasm-unsafe-eval"))
   assert.ok(!source.includes('"./v4/classic/external.js":!1'), "Parcel stripped Zod and would crash before mounting")
 })

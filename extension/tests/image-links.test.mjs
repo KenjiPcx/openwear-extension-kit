@@ -1,21 +1,20 @@
 import test from "node:test"
 import assert from "node:assert/strict"
-import { readFileSync } from "node:fs"
-import { transform } from "esbuild"
+import { fileURLToPath } from "node:url"
+import { build } from "esbuild"
 
 let listener
 globalThis.chrome = {
   storage: { local: { get: async () => ({}) } },
-  runtime: { onMessage: { addListener: callback => { listener = callback } } }
+  runtime: { id: "ext", getURL: path => `chrome-extension://ext/${path}`, onMessage: { addListener: callback => { listener = callback } }, onInstalled: { addListener() {} }, onMessageExternal: { addListener() {} } }
 }
 
-const source = readFileSync(new URL("../background.ts", import.meta.url), "utf8")
-const compiled = await transform(source, { loader: "ts", format: "esm" })
-await import(`data:text/javascript;base64,${Buffer.from(compiled.code).toString("base64")}`)
+const bundled = await build({ entryPoints: [fileURLToPath(new URL("../background.ts", import.meta.url))], bundle: true, format: "esm", write: false })
+await import(`data:text/javascript;base64,${Buffer.from(bundled.outputFiles[0].text).toString("base64")}`)
 
 function requestImage(url) {
   return new Promise(resolve => {
-    listener({ type: "image", url }, { tab: { id: 1 }, url: "https://www.pinterest.com/search/pins/" }, resolve)
+    listener({ type: "image", url }, { id: "ext", url: "chrome-extension://ext/tabs/room.html" }, resolve)
   })
 }
 
@@ -36,7 +35,7 @@ test("a large Pinterest-style pin page resolves its public preview image", async
     assert.equal(reply.ok, true)
     assert.equal(reply.data, "data:image/jpeg;base64,/9j/")
     assert.deepEqual(calls.map(call => call.url), [page, image])
-    assert.ok(calls.every(call => call.options.credentials === "omit" && call.options.redirect === "error"))
+    assert.ok(calls.every(call => call.options.credentials === "omit" && call.options.redirect === "follow"))
   } finally { globalThis.fetch = originalFetch }
 })
 

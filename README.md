@@ -1,64 +1,175 @@
-# OpenWear
+# OpenWear: AI fitting room for your browser
 
-An MIT-licensed web app for live virtual try-on using Decart's latest Lucy VTON model (currently VTON 3.5). Webcam input, four original illustrative starter garments, garment uploads and switching, live AI output, and JPEG snapshots. The app is open source; Decart's inference service is proprietary and paid.
+Try on clothes from any online shop, live on your webcam.
 
-## Run locally
+Open a shopping site (or Pinterest), click **AI fitting room**, line yourself up with the outline, then drag any product photo onto the video. A laser scan sweeps over you and you appear wearing the outfit.
 
-Requires Node.js 22+ and a Decart API key from https://platform.decart.ai/api-keys.
+It runs on [Decart](https://platform.decart.ai)'s Lucy VTON realtime model. **The only thing you need to bring is a Decart API key.**
 
-```sh
+---
+
+## What you need
+
+| | |
+|---|---|
+| A computer | Mac, Windows or Linux, with a webcam |
+| A browser | Google Chrome or Brave |
+| Node.js | Version 20 or newer. Download the **LTS** version from [nodejs.org](https://nodejs.org). This is only used to build the extension once. |
+| A Decart account | Sign up at [platform.decart.ai](https://platform.decart.ai), add credits, and create an API key (it starts with `dct_`). |
+
+> 💸 **Cost:** Decart bills live video **per second**, and it comes out of your Decart credits. The fitting room stops automatically when you close it, switch tabs, or reach the session limit (5 minutes by default).
+
+---
+
+## Quick start (no coding, 2 minutes)
+
+This repo includes a ready-made build in the **`openwear-extension`** folder.
+
+1. On GitHub, click the green **Code** button → **Download ZIP**, then unzip it.
+2. Go to `chrome://extensions` (Chrome) or `brave://extensions` (Brave).
+3. Turn on **Developer mode** (the switch in the top-right corner).
+4. Click **Load unpacked** and select the **`openwear-extension`** folder.
+5. The settings page opens. Paste your Decart API key and click **Save key**.
+
+Done. Skip to [Using it](#using-it). You only need the setup below if you want to change the code.
+
+---
+
+## Build it yourself (about 5 minutes)
+
+### 1. Open a terminal in the `extension` folder
+
+- **Mac:** open **Terminal**, type `cd ` (with a space after it), drag the `extension` folder onto the Terminal window, then press Enter.
+- **Windows:** open the `extension` folder in File Explorer, click the address bar, type `cmd`, and press Enter.
+
+To check you're in the right place, run:
+
+```bash
+ls
+```
+
+You should see `package.json` in the list (on Windows, use `dir` instead).
+
+### 2. Check Node.js is installed
+
+```bash
+node -v
+```
+
+You should see something like `v22.x.x`. If you get "command not found", install Node.js from [nodejs.org](https://nodejs.org) and open a new terminal.
+
+### 3. Install the dependencies
+
+```bash
 npm ci
-cp .env.example .env
-# Set DECART_API_KEY in .env. Never commit the key.
+```
+
+This downloads everything the project needs into a `node_modules` folder. It takes a minute or two, and you only do it once.
+
+### 4. Build the extension
+
+```bash
 npm run build
-npm start
 ```
 
-Open http://localhost:3000 for the new one-page Cartroom landing/showroom prototype. Visitors can add local garment images, public HTTPS product pages, or direct public image URLs to a temporary gallery and select 1-, 2-, 5-, or 10-minute passes. Product pages are supported when they expose a public `og:image` or `twitter:image`; sites that block retrieval or hide images behind scripts may fail, so file upload remains the fallback. The gallery stays in browser memory only and disappears on reload. Checkout is deliberately disabled: no prices, payment provider, session entitlements, capacity reservation, or credit recovery are wired yet. The reel cards are placeholders until the creator supplies their actual video URLs.
+When it finishes you'll see `Copied MediaPipe vision files into build/chrome-mv3-prod/vision`. The finished extension is now in **`extension/build/chrome-mv3-prod`**.
 
-The original working webcam try-on demo is preserved at http://localhost:3000/classic. There, select a garment, click Enable camera, and allow camera access. Uploaded images must be JPG, PNG, or WebP under 4 MB. Describe custom garments briefly. Keep your upper body visible. Starter garments are illustrations; upload real product photos for a representative customer demo.
+### 5. Load it into your browser
 
-The server reloads `.env` settings when a session starts. Camera and stream stop when you click Stop, leave the page, switch tabs, or reach the session limit. Save look downloads a JPEG locally. No audio is requested. Camera video and garment images go to Decart; OpenWear does not save them on its server.
+1. Go to `chrome://extensions` (Chrome) or `brave://extensions` (Brave).
+2. Turn on **Developer mode** (the switch in the top-right corner).
+3. Click **Load unpacked**.
+4. Select the **`build/chrome-mv3-prod`** folder inside `extension`.
 
-## Architecture
+OpenWear appears in your extension list. Click the puzzle-piece icon in the toolbar and pin it so it's easy to find.
 
-```text
-Browser ── access code ──> Node server ── API key ──> Decart token API
-Browser <──────────── short-lived model-scoped token ───────────┘
-Webcam + garment ── WebRTC / Decart SDK ──> Lucy VTON ──> live video
+### 6. Add your Decart API key
+
+The settings page opens automatically the first time. You can also reach it anytime from the OpenWear toolbar icon → **Settings**.
+
+1. Paste your key (`dct_…`).
+2. Click **Save key**. OpenWear checks the key with Decart before saving it.
+
+Your key is stored **only in this browser**. It's never written into the code, and the fitting room only ever receives a 60-second temporary token.
+
+---
+
+## Using it
+
+1. Open any shopping site, like Uniqlo, Zara or Pinterest.
+2. Click the black **AI fitting room** button on the right side of the page (or the OpenWear toolbar icon → **Open fitting room**).
+3. Click **Enable camera** and allow camera access.
+4. **Line up with the outline** until it lights up, with your head in the circle and your shoulders in the body. Or click **Skip guide**.
+5. **Drag a product photo** from the page onto the video (or click the drop area to upload a photo).
+6. Watch the scan. In a few seconds you're wearing the outfit.
+
+Drag another photo in any time to switch outfits. Click the ✏️ next to the item name to describe it better (for example, "black bomber jacket with blue logo"). The 📷 button saves a snapshot, and ⏻ turns the camera off.
+
+**Tips for good results**
+- Use photos where the clothes are clearly visible. Plain backgrounds work best.
+- Stand in good, even light, facing the camera.
+- The whole outfit in the photo gets swapped onto you. It's a visual preview, not a size guide.
+
+---
+
+## Troubleshooting
+
+| Problem | Fix |
+|---|---|
+| No **AI fitting room** button on the page | Refresh the page. It won't appear on browser pages like `chrome://…` or the web store. You can always open it from the toolbar icon. |
+| "Camera access is blocked" | Click **Allow camera** in the message, or click the camera icon in the address bar and allow it. |
+| "Decart rejected your API key" | Copy the key again from platform.decart.ai and paste it in Settings. Also check your account has credits. |
+| "In Decart queue · #3 of 10" | Decart is busy. Wait, and it starts automatically. |
+| Video freezes or won't connect | Usually a network or VPN blocking video traffic. Try another network. |
+| Nothing changes after editing the code | Run `npm run build` again, then click the ↻ reload icon on OpenWear at `chrome://extensions`, then refresh the shop page. |
+
+---
+
+## Commands
+
+Run these inside the `extension` folder.
+
+| Command | What it does |
+|---|---|
+| `npm ci` | Install dependencies (first time only) |
+| `npm run build` | Build the extension into `build/chrome-mv3-prod` |
+| `npm run package` | Build, then zip it into `build/chrome-mv3-prod.zip` |
+| `npm test` | Run the automated checks |
+| `npm run typecheck` | Check the TypeScript for errors |
+
+---
+
+## How the code is organised
+
+```
+extension/
+├── content.tsx        Runs on every website: the launcher button and the floating window
+├── tabs/room.tsx      The fitting room: camera, framing guide, Decart session, laser scan
+├── tabs/room.css      Fitting room styles
+├── background.ts      Holds your API key, mints temporary Decart tokens, downloads dragged images
+├── popup.tsx          The toolbar popup
+├── options.tsx        The settings page (API key, fast mode, session limit)
+├── lib/
+│   ├── drop.ts        Reads a dropped file, image or link
+│   ├── garment.ts     Product-name cleanup, the Decart prompt, image preparation
+│   ├── settings.ts    Saved settings
+│   └── vision.ts      Body tracking (MediaPipe) and the framing-guide rules
+├── vision/            The body-tracking model file
+├── vendor/            Decart SDK + MediaPipe, pre-bundled at build time
+├── scripts/           Build helper that copies the body-tracking files into the build
+└── tests/             Automated checks
 ```
 
-The permanent key never reaches the frontend. Tokens last 60 seconds for new connections, scoped to `lucy-vton-latest`, the requesting origin, and a server-enforced maximum session duration (default 120 seconds). At the published $0.02/second rate, a full two-minute session is about $2.40. Pricing: https://docs.platform.decart.ai/getting-started/pricing. The product-image resolver only fetches public HTTPS hosts, pins a validated public IPv4 address for each request, refuses redirects and unsupported content, and limits response size and lookup rate; it cannot guarantee access to every retailer.
+**How a try-on works:** the page script catches your drag and sends the image to the fitting room. The fitting room loads the image onto a white 768px square, which is what Decart recommends. It asks the background worker for a short-lived token and connects to Decart with your camera and the garment. From then on it swaps new garments into the same live session.
 
-## Share with testers
+**Privacy:** your camera video goes to Decart only while the fitting room is open. Nothing is recorded or stored. Body tracking runs on your own computer.
 
-Deploy to a Node/Docker host with HTTPS. Set `DECART_API_KEY`, `DEMO_ACCESS_CODE`, `HOST=0.0.0.0`, and optionally `SESSION_SECONDS` (30–600, default 120). The host must terminate TLS; browsers require HTTPS for camera access outside localhost.
+**Developer note:** when OpenWear is loaded unpacked (Developer mode), a page on `http://localhost` can ask it to reload itself, so new builds can be picked up without visiting the extensions page. Installs from a store ignore this.
 
-```sh
-docker build -t openwear .
-docker run --rm --env-file .env -p 3000:3000 openwear
-```
+## Business notes
 
-Non-loopback binding requires a demo code. This is a controlled demo, not a public multi-tenant service: the shared code and basic per-connection-IP token rate limit do not replace user accounts, quotas, paid-session entitlements, capacity admission, or a global spend cap. Behind a proxy, the IP limit may be shared across users. Do not deploy the new page as a paid service until checkout is verified server-side and the token endpoint requires a valid, unspent pass. AI appearance does not establish sizing or fit accuracy.
+[BUSINESS_ANALYSIS.md](BUSINESS_ANALYSIS.md) has my breakdown of what realtime try-on costs, and where a try-on business might and might not work.
 
-## Browser extension
+## License
 
-The [Plasmo extension](extension/README.md) adds a resizable fitting-room panel to product pages. It supports drag-and-drop page images, starter garments, webcam streaming, and snapshots while reusing this server for short-lived Decart tokens. It is a local Chrome/Brave demo; follow its README to build and load it unpacked.
-
-## Verification
-
-```sh
-npm test
-npm run build
-npm audit
-```
-
-Tests exercise the real HTTP app with stubbed token minting; they do not prove paid inference. For live verification, configure a funded key, start the camera, inspect the returned video, switch two garments, upload a real garment, save a snapshot, then stop. See `proof.md` for completed checks and limits.
-
-## Sources
-
-- Decart SDK 0.1.0 (MIT; pinned for the verified live stream): https://github.com/DecartAI/sdk
-- API: https://docs.platform.decart.ai/models/realtime/virtual-try-on
-- Tokens: https://docs.platform.decart.ai/getting-started/client-tokens
-- Starter garment illustrations are original and covered by this app's MIT license.
-- No Anywear assets or Decart branding were copied.
+MIT (see [LICENSE](LICENSE)).

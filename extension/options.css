@@ -1,0 +1,27 @@
+/* Settings page (options.tsx). */
+* { box-sizing: border-box; }
+body { margin: 0; background: #f4f3f0; color: #161616; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.options { max-width: 560px; margin: 0 auto; padding: 72px 24px 80px; }
+.kicker { color: #8a8a86; font-size: 11px; letter-spacing: .24em; font-weight: 600; }
+h1 { margin: 12px 0 8px; font-size: 40px; font-weight: 600; letter-spacing: -.045em; }
+.lede { margin: 0 0 28px; color: #5e5e5a; font-size: 15px; line-height: 1.5; }
+.card { display: grid; gap: 14px; margin-bottom: 16px; padding: 24px; background: #fff; border: 1px solid #e4e3de; }
+label { font-size: 13px; font-weight: 600; }
+.key-row { display: flex; gap: 8px; }
+input[type=password], input[type=text], select { width: 100%; border: 1px solid #cfcfca; padding: 12px; background: #fff; color: #111; font: 14px ui-monospace, Menlo, monospace; }
+select { font-family: inherit; width: auto; margin-left: 10px; padding: 8px; }
+input:focus, select:focus { outline: 2px solid #111; outline-offset: 1px; }
+button { font: inherit; cursor: pointer; }
+.primary { justify-self: start; border: 0; padding: 12px 22px; background: #111; color: #fff; font-size: 14px; }
+.primary:disabled { opacity: .5; }
+.ghost { border: 1px solid #cfcfca; padding: 0 14px; background: #fff; color: #333; font-size: 13px; }
+.hint { margin: 0; color: #7a7a76; font-size: 12px; line-height: 1.5; }
+.hint a { color: #111; }
+.status { margin: 0; padding: 10px 12px; font-size: 13px; }
+.status.ok { background: #eaf7ef; color: #1c6b3e; }
+.status.error { background: #fdeeea; color: #a33627; }
+.status.busy { background: #f2f2ef; color: #555; }
+.toggle { display: flex; gap: 12px; align-items: flex-start; font-weight: 400; color: #666; font-size: 12px; line-height: 1.45; cursor: pointer; }
+.toggle input { margin-top: 2px; width: 16px; height: 16px; accent-color: #111; }
+.toggle b { display: block; margin-bottom: 2px; color: #161616; font-size: 14px; font-weight: 600; }
+.select { display: flex; align-items: center; font-weight: 600; }

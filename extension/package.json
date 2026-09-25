@@ -1,21 +1,23 @@
 {
   "name": "openwear-extension",
   "displayName": "OpenWear Fitting Room",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Drag product images into a live virtual fitting room.",
   "private": true,
   "type": "module",
   "scripts": {
-    "prebundle": "esbuild vendor/decart-entry.ts --bundle --platform=browser --format=esm --target=chrome120 --minify --outfile=vendor/decart-sdk.mjs",
+    "prebundle": "esbuild vendor/decart-entry.ts --bundle --platform=browser --format=esm --target=chrome120 --minify --outfile=vendor/decart-sdk.mjs && cp node_modules/@decartai/sdk/dist/realtime/browser/frame-metadata-worker.js vendor/frame-metadata-worker.js",
     "dev": "npm run prebundle && plasmo dev",
-    "build": "npm run prebundle && plasmo build",
-    "package": "plasmo package",
+    "build": "npm run prebundle && plasmo build && node scripts/copy-vision.mjs build/chrome-mv3-prod",
+    "package": "npm run build && plasmo package",
     "test": "node --test tests/*.test.mjs",
     "test:bundle": "node --test tests/bundle.test.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "copy-vision:dev": "node scripts/copy-vision.mjs build/chrome-mv3-dev"
   },
   "dependencies": {
-    "@decartai/sdk": "0.1.0",
+    "@decartai/sdk": "^0.2.2",
+    "@mediapipe/tasks-vision": "^1.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -33,14 +35,31 @@
       "scripting"
     ],
     "host_permissions": [
-      "http://127.0.0.1/*",
-      "http://localhost/*",
       "https://*/*",
       "http://*/*"
     ],
     "action": {
       "default_title": "Open OpenWear fitting room",
       "default_popup": "popup.html"
+    },
+    "web_accessible_resources": [
+      {
+        "resources": [
+          "tabs/room.html"
+        ],
+        "matches": [
+          "http://*/*",
+          "https://*/*"
+        ]
+      }
+    ],
+    "content_security_policy": {
+      "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+    },
+    "externally_connectable": {
+      "matches": [
+        "http://localhost/*"
+      ]
     }
   }
 }

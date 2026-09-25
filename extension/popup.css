@@ -1,3 +1,4 @@
+/* Toolbar popup (popup.tsx). */
 html, body { margin: 0; padding: 0; background: #f8f8f7; }
 body { width: 420px; color: #202020; font-family: Arial, Helvetica, sans-serif; }
 * { box-sizing: border-box; }
@@ -11,3 +12,4 @@ body { width: 420px; color: #202020; font-family: Arial, Helvetica, sans-serif; 
 .popup-action:disabled { opacity: .65; cursor: wait; }
 .popup-action svg { width: 27px; height: 27px; flex: none; fill: none; stroke: #d0d0d0; stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
 .popup-error { margin: 14px 2px 0; color: #a42d26; font-size: 12px; line-height: 1.4; }
+.popup-hint { margin: 16px 2px 0; color: #8a8a86; font-size: 12px; line-height: 1.4; }
