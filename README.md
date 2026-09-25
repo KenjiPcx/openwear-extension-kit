@@ -2,6 +2,10 @@
 
 Try on clothes from any online shop (or Pinterest), live on your webcam. Drag a product photo onto yourself and a laser scan swaps the outfit in seconds.
 
+![Laser scan over a grey T-shirt, then the same live video wearing a black leather jacket](docs/scan-to-result.jpg)
+
+*Left: the scan runs while Decart applies the outfit. Right: a few seconds later, live. Frames from [the reel](https://www.instagram.com/p/Dds3eE4qyK8/).*
+
 Runs on [Decart](https://platform.decart.ai)'s Lucy VTON realtime model. **You just need a Decart API key.**
 
 > 💸 Decart bills live video per second from your credits. Sessions stop when you close the window, switch tabs, or reach the time limit (5 minutes by default).
